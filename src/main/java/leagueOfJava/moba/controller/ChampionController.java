@@ -6,7 +6,9 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import leagueOfJava.moba.dto.ChampionDTO;
 import leagueOfJava.moba.service.ChampionService;
 import org.apache.coyote.BadRequestException;
+import org.springframework.data.domain.Page;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,8 +25,8 @@ public class ChampionController {
     @Operation(description = "retorn todos os campeões")
     @ApiResponse(responseCode = "200", description = "Retorna todos os campeões")
     @GetMapping
-    public ResponseEntity<List<ChampionDTO>> getAll() {
-        return ResponseEntity.ok(service.getAll());
+    public ResponseEntity<Page<ChampionDTO>> getAll(Pageable pageable) {
+        return ResponseEntity.ok(service.getAll(pageable));
     }
 
     @Operation(description = "retorna o campeão com base no id")

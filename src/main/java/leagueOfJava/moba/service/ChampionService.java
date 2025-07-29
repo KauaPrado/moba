@@ -9,6 +9,8 @@ import leagueOfJava.moba.repository.ChampionRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,10 +36,13 @@ public class ChampionService {
         championRepository.save(modelMapper.map(championDTO, Champion.class));
     }
 
-    public List<ChampionDTO> getAll() {
-        return championRepository.findAll().stream().map(
-                champion -> modelMapper.map(champion, ChampionDTO.class)
-        ).collect(Collectors.toList());
+    public Page<ChampionDTO> getAll(Pageable pageable) {
+//        return championRepository.findAll().stream().map(
+//                champion -> modelMapper.map(champion, ChampionDTO.class)
+//        ).collect(Collectors.toList());
+        Page<Champion> championPage =  championRepository.findAll(pageable);
+        return championPage.map(champion ->
+                modelMapper.map(champion, ChampionDTO.class));
     }
 
     public ChampionDTO findChampionByName(String name) {
