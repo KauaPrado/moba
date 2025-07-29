@@ -1,0 +1,10 @@
+# Diretórios que não devem ser versionados
+.idea/
+.mvn/
+target/
+
+# Arquivos que não devem ser versionados
+.gitattributes
+mvnw
+mvnw.cmd
+src/main/resources/application.yml
