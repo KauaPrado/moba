@@ -54,7 +54,7 @@ public class ChampionController {
     @Operation(description = "desativa o campeão com base no id")
     @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "campeão desativado"), @ApiResponse(responseCode = "400", description = "id inválido")})
     @PutMapping(path = "inactivate/{id}")
-    public ResponseEntity<Void> inactivate(@PathVariable Long id){
+    public ResponseEntity<Void> inactivate(@PathVariable Long id) {
         service.inactivate(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -71,8 +71,7 @@ public class ChampionController {
     @Operation(description = "deleta o campeão com base no id")
     @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "campeão ativado"), @ApiResponse(responseCode = "400", description = "id inválido")})
     @DeleteMapping(path = "{id}")
-    public ResponseEntity<Void> deleteById(@PathVariable Long id)
-    {
+    public ResponseEntity<Void> deleteById(@PathVariable Long id) {
         service.deleteByID(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
