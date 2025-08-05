@@ -43,20 +43,20 @@ public class SkinService {
         skinRepository.save(skin);
     }
 
-    public Page<SkinDTO> getAll(Pageable pageable){
+    public Page<SkinDTO> getAll(Pageable pageable) {
         Page<Skin> skinPage = skinRepository.findAll(pageable);
         return skinPage.map(skin -> modelMapper.map(skin, SkinDTO.class));
     }
 
-    public SkinDTO findByID(Long id){
+    public SkinDTO findByID(Long id) {
         Optional<Skin> optionalSkin = skinRepository.findById(id);
-        if (optionalSkin.isEmpty()){
+        if (optionalSkin.isEmpty()) {
             throw new ResultadoNaoEncontradoException("Skin não encontrada para o id informado. ID{" + id + "}");
         }
         return modelMapper.map(optionalSkin.get(), SkinDTO.class);
     }
 
-    public void inactivate(Long id){
+    public void inactivate(Long id) {
         Optional<Skin> skinToBeInactivated = skinRepository.findById(id);
         if (skinToBeInactivated.isEmpty()) {
             throw new ResultadoNaoEncontradoException("skin não encontrada para o id informado. ID{" + id + "}");
@@ -73,7 +73,6 @@ public class SkinService {
         if (skinToBeActivated.isEmpty()) {
             throw new ResultadoNaoEncontradoException("skin não encontrada para o id informado. ID{" + id + "}");
         }
-
         if (skinToBeActivated.get().isActive()) {
             throw new DadosInvalidosException(("a skin já se encontra ativa"));
         }
