@@ -22,7 +22,7 @@ public class ChampionController {
     @Autowired
     private ChampionService service;
 
-    @Operation(description = "retorn todos os campeões")
+    @Operation(description = "retorna todos os campeões")
     @ApiResponse(responseCode = "200", description = "Retorna todos os campeões")
     @GetMapping
     public ResponseEntity<Page<ChampionDTO>> getAll(Pageable pageable) {
