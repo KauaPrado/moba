@@ -1,36 +1,30 @@
 package leagueOfJava.moba.domain;
 
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Set;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Builder
-@Table(name = "tb_champion")
-public class Champion {
+@Table(name = "tb_champions_stats")
+public class ChampionStats {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String name;
-    private String ability;
 
-    private String championType;
+    private String win_rate;
+    private String pick_rate;
+    private String ban_rate;
 
-    private boolean human;
-    private boolean active;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "champion_id", referencedColumnName = "id")
+    private Champion champion;
 
-    @OneToOne(mappedBy = "champion")
-    private ChampionStats championStats;
-    @OneToMany(mappedBy = "champion")
-    private Set<Skin> skins;
 }
