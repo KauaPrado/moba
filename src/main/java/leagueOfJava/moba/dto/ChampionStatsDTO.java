@@ -10,4 +10,5 @@ public class ChampionStatsDTO {
     private String win_rate;
     private String pick_rate;
     private String ban_rate;
+    private Long championID;
 }

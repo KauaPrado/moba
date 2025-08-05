@@ -40,7 +40,7 @@ public class ChampionService {
 //        return championRepository.findAll().stream().map(
 //                champion -> modelMapper.map(champion, ChampionDTO.class)
 //        ).collect(Collectors.toList());
-        Page<Champion> championPage =  championRepository.findAll(pageable);
+        Page<Champion> championPage = championRepository.findAll(pageable);
         return championPage.map(champion ->
                 modelMapper.map(champion, ChampionDTO.class));
     }
@@ -48,7 +48,7 @@ public class ChampionService {
     public ChampionDTO findChampionByName(String name) {
         Optional<Champion> optionalChampion = championRepository.findByName(name.toLowerCase());
 
-        if(optionalChampion.isEmpty()){
+        if (optionalChampion.isEmpty()) {
             throw new ResultadoNaoEncontradoException("Champion não encontrado para o nome informado");
         }
 
