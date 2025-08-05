@@ -9,6 +9,8 @@ import leagueOfJava.moba.repository.ChampionStatsRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,6 +43,10 @@ public class ChampionStatsService {
                 .champion(optionalChampion.get())
                 .build();
         championStatsRepository.save(championStats);
+    }
+    public Page<ChampionStatsDTO> getAll(Pageable pageable){
+        Page<ChampionStats> championStatsPage= championStatsRepository.findAll(pageable);
+        return championStatsPage.map(championStats -> modelMapper.map(championStats, ChampionStatsDTO.class));
     }
 
 }

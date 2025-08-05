@@ -22,6 +22,8 @@ public class SkinController {
     @Autowired
     private SkinService service;
 
+    @Operation(description = "insere a skin com base no documento informado")
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "skin inserida"), @ApiResponse(responseCode = "400", description = "documento inválido")})
     @PostMapping
     public ResponseEntity<Void> register(@RequestBody SkinDTO skinDTO){
         service.register(skinDTO);
