@@ -17,6 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("champions")
+@CrossOrigin(origins = "http://localhost:5173")
 public class ChampionController {
 
     @Autowired

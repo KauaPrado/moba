@@ -1,11 +1,55 @@
-# Diretórios que não devem ser versionados
-.idea/
-.mvn/
-target/
+# =========================
+# Build
+# =========================
+/target/
+*.jar
+*.war
+*.ear
 
-# Arquivos que não devem ser versionados
-.gitattributes
-mvnw
-mvnw.cmd
-src/main/resources/application.yml
-src/main/resources/application-test.yml
+# =========================
+# Logs
+# =========================
+*.log
+logs/
+
+# =========================
+# IDEs
+# =========================
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# VSCode
+.vscode/
+
+# Eclipse
+.project
+.classpath
+.settings/
+
+# =========================
+# Sistema operacional
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Env / Secrets
+# =========================
+.env
+.env.*
+application-local.yml
+application-dev.yml
+
+# =========================
+# Arquivos sensíveis
+# =========================
+*.key
+*.pem
+*.p12
+
+# =========================
+# Test / cobertura
+# =========================
+/coverage/
