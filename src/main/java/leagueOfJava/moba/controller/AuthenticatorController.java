@@ -1,6 +1,10 @@
 package leagueOfJava.moba.controller;
 
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import leagueOfJava.moba.domain.User;
 import leagueOfJava.moba.dto.AuthenticationDto;
@@ -21,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/auth")
+@Tag(name = "Autenticação")
 public class AuthenticatorController {
 
     @Autowired
@@ -35,29 +40,29 @@ public class AuthenticatorController {
     @Autowired
     private TokenService tokenService;
 
+
+    @Operation(description = "Efetua o login do usuário e retorna o token JWT")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Login efetuado com sucesso"),
+            @ApiResponse(responseCode = "403", description = "Credenciais inválidas ou usuário inexistente")
+    })
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody @Valid AuthenticationDto data){
-        try {
-            var usernamePassword =
-                    new UsernamePasswordAuthenticationToken(data.login(), data.password());
 
-            var auth = this.authenticationManager.authenticate(usernamePassword);
+        var usernamePassword =  new UsernamePasswordAuthenticationToken(data.login(), data.password());
+        var auth = this.authenticationManager.authenticate(usernamePassword);
+        var user = (User) auth.getPrincipal();
+        var token = tokenService.generateToken(user);
+        return ResponseEntity.ok(token);
 
-            var user = (User) auth.getPrincipal();
-
-            var token = tokenService.generateToken(user);
-
-            return ResponseEntity.ok(token);
-
-        } catch (Exception e) {
-            e.printStackTrace(); // 👈 aqui
-
-            return ResponseEntity
-                    .badRequest()
-                    .body(e.getClass().getSimpleName() + ": " + e.getMessage());
-        }
     }
 
+
+    @Operation(description = "Registra um novo usuário (invocador) no sistema")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Usuário registrado com sucesso"),
+            @ApiResponse(responseCode = "400", description = "Dados inválidos ou login já em uso")
+    })
     @PostMapping("/register")
     public ResponseEntity register(@RequestBody @Valid RegisterDTO data){
         if (this.repository.findByLogin(data.getLogin()) != null) {

@@ -45,7 +45,7 @@ public class ChampionController {
     }
 
     @Operation(description = "insere o campeão com base no documento informado")
-    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "campeão inserido"), @ApiResponse(responseCode = "400", description = "documento inválido")})
+    @ApiResponses(value = {@ApiResponse(responseCode = "201", description = "campeão inserido"), @ApiResponse(responseCode = "400", description = "documento inválido")})
     @PostMapping
     public ResponseEntity<Void> register(@RequestBody ChampionDTO championDTO) {
         service.register(championDTO);
