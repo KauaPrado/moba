@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ChampionDTO {
+    private Long id;
     private String name;
     private String ability;
     private String championType;

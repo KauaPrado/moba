@@ -39,6 +39,7 @@ public class ChampionCreator
 
     public static ChampionDTO createValidChampionDTO() {
         return ChampionDTO.builder()
+                .id(1L)
                 .name("Malzahar")
                 .ability("Creatures")
                 .championType("Mage")
