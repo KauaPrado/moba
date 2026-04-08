@@ -44,12 +44,12 @@ class ChampionServiceTest {
         Champion champion = ChampionCreator.createValidChampion();
         ChampionDTO championDTO = new ChampionDTO();
 
-        // Mock do Page
+
         PageImpl<Champion> championPage = new PageImpl<>(List.of(champion));
         BDDMockito.when(championRepositoryMock.findAll(ArgumentMatchers.any(PageRequest.class)))
                 .thenReturn(championPage);
 
-        // Mock do ModelMapper
+
         BDDMockito.when(modelMapperMock.map(any(), eq(ChampionDTO.class))).thenReturn(championDTO);
         BDDMockito.when(modelMapperMock.map(any(), eq(Champion.class))).thenReturn(champion);
     }
